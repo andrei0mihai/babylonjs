@@ -1,0 +1,206 @@
+[debug] [2020-11-27T15:09:13.029Z] ----------------------------------------------------------------------
+[debug] [2020-11-27T15:09:13.030Z] Command:       /usr/local/bin/node /Users/andrei.mihai/babylonjs/node_modules/.bin/firebase init
+[debug] [2020-11-27T15:09:13.030Z] CLI Version:   8.16.2
+[debug] [2020-11-27T15:09:13.031Z] Platform:      darwin
+[debug] [2020-11-27T15:09:13.031Z] Node Version:  v14.9.0
+[debug] [2020-11-27T15:09:13.032Z] Time:          Fri Nov 27 2020 17:09:13 GMT+0200 (Eastern European Standard Time)
+[debug] [2020-11-27T15:09:13.032Z] ----------------------------------------------------------------------
+[debug] [2020-11-27T15:09:13.032Z] 
+[debug] [2020-11-27T15:09:13.037Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-11-27T15:09:13.037Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/andrei.mihai/babylonjs
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2020-11-27T15:09:34.511Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/babylon-js-with-angular  
+ 
+[debug] [2020-11-27T15:09:34.821Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:09:34 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  Using project babylon-js-with-angular (babylon-js-with-angular) 
+[info] 
+=== Database Setup
+[info] 
+[info] Firebase Realtime Database Rules allow you to define how your data should be
+[info] structured and when your data can be read from and written to.
+[info] 
+[debug] [2020-11-27T15:09:41.759Z] >>> HTTP REQUEST GET https://babylon-js-with-angular.firebaseio.com/.settings/rules.json  
+ 
+[debug] [2020-11-27T15:09:42.385Z] <<< HTTP RESPONSE 200 {"server":"nginx","date":"Fri, 27 Nov 2020 15:09:42 GMT","content-type":"application/json; charset=utf-8","content-length":"161","connection":"keep-alive","access-control-allow-origin":"*","cache-control":"no-cache","strict-transport-security":"max-age=31556926; includeSubDomains; preload"}
+[info] ✔  Database Rules for babylon-js-with-angular have been downloaded to database.rules.json. 
+[info] Future modifications to database.rules.json will update Database Rules when you run
+[info] firebase deploy.
+[info] 
+=== Firestore Setup
+[debug] [2020-11-27T15:09:42.388Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/babylon-js-with-angular/services/firestore.googleapis.com  
+ 
+[debug] [2020-11-27T15:09:43.486Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:09:43 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-27T15:09:43.487Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/babylon-js-with-angular  
+ 
+[debug] [2020-11-27T15:09:44.068Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:09:44 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-27T15:09:44.068Z] database_type: CLOUD_FIRESTORE
+[debug] [2020-11-27T15:09:44.068Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-11-27T15:09:44.069Z] > authorizing via signed-in user
+[debug] [2020-11-27T15:09:44.069Z] [iam] checking project babylon-js-with-angular for permissions ["firebase.projects.get"]
+[debug] [2020-11-27T15:09:44.070Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/babylon-js-with-angular:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-11-27T15:09:44.941Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:09:44 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=698","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] Firestore Security Rules allow you to define how and when to allow
+[info] requests. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2020-11-27T15:09:48.379Z] >>> HTTP REQUEST GET https://firebaserules.googleapis.com/v1/projects/babylon-js-with-angular/releases?pageSize=10&pageToken=  
+ 
+[debug] [2020-11-27T15:09:49.242Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:09:49 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-27T15:09:49.243Z] Found ruleset: projects/babylon-js-with-angular/rulesets/3cb8951f-b312-4c97-93fb-4a8fd512048b
+[debug] [2020-11-27T15:09:49.243Z] >>> HTTP REQUEST GET https://firebaserules.googleapis.com/v1/projects/babylon-js-with-angular/rulesets/3cb8951f-b312-4c97-93fb-4a8fd512048b  
+ 
+[debug] [2020-11-27T15:09:50.027Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:09:49 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] Firestore indexes allow you to perform complex queries while
+[info] maintaining performance that scales with the size of the result
+[info] set. You can keep index definitions in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2020-11-27T15:09:52.315Z] >>> HTTP REQUEST GET https://firestore.googleapis.com/v1/projects/babylon-js-with-angular/databases/(default)/collectionGroups/-/indexes  
+ 
+[debug] [2020-11-27T15:09:52.316Z] >>> HTTP REQUEST GET https://firestore.googleapis.com/v1/projects/babylon-js-with-angular/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false  
+ 
+[debug] [2020-11-27T15:09:52.708Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:09:52 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-27T15:09:52.925Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:09:52 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+=== Functions Setup
+[info] 
+[info] A functions directory will be created in your project with a Node.js
+[info] package pre-configured. Functions can be deployed with firebase deploy.
+[info] 
+[debug] [2020-11-27T15:09:52.928Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-11-27T15:09:52.928Z] > authorizing via signed-in user
+[debug] [2020-11-27T15:09:52.928Z] [iam] checking project babylon-js-with-angular for permissions ["firebase.projects.get"]
+[debug] [2020-11-27T15:09:52.929Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/babylon-js-with-angular:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-11-27T15:09:53.766Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:09:53 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=701","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-27T15:09:53.767Z] >>> HTTP REQUEST POST https://serviceusage.googleapis.com/v1/projects/babylon-js-with-angular/services/cloudfunctions.googleapis.com:enable  
+ 
+[debug] [2020-11-27T15:09:53.767Z] >>> HTTP REQUEST POST https://serviceusage.googleapis.com/v1/projects/babylon-js-with-angular/services/runtimeconfig.googleapis.com:enable  
+ 
+[debug] [2020-11-27T15:09:54.820Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:09:54 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-27T15:09:55.255Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:09:55 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] ✔  Wrote functions/package.json 
+[info] ✔  Wrote functions/.eslintrc.js 
+[info] ✔  Wrote functions/tsconfig.json 
+[info] ✔  Wrote functions/src/index.ts 
+[info] ✔  Wrote functions/.gitignore 
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[debug] [2020-11-27T15:11:35.105Z] >>> HTTP REQUEST GET https://www.gstatic.com/firebasejs/releases.json  
+ 
+[debug] [2020-11-27T15:11:35.268Z] <<< HTTP RESPONSE 200 {"accept-ranges":"bytes","vary":"Accept-Encoding, Origin","content-type":"application/json","cross-origin-resource-policy":"cross-origin","content-length":"1411","date":"Fri, 27 Nov 2020 15:09:15 GMT","expires":"Fri, 27 Nov 2020 15:59:15 GMT","last-modified":"Fri, 20 Nov 2020 01:53:31 GMT","x-content-type-options":"nosniff","server":"sffe","x-xss-protection":"0","cache-control":"public, max-age=3000","age":"140","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""}
+[info] ✔  Wrote dist/babylonjs/index.html 
+[info] 
+[info] i  Detected a .git folder at /Users/andrei.mihai/babylonjs 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=733043180&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
+[debug] [2020-11-27T15:11:48.846Z] >>> HTTP REQUEST POST https://github.com/login/oauth/access_token  
+ {"client_id":"89cf50f02ac6aaed3484","client_secret":"3330d14abc895d9a74d5f17cd7a00711fa2c5bf0","code":"92cf98e37b497d9fdbfa","redirect_uri":"http://localhost:9005","state":"733043180"}
+[debug] [2020-11-27T15:11:49.182Z] <<< HTTP RESPONSE 200 {"date":"Fri, 27 Nov 2020 15:11:49 GMT","content-type":"application/json; charset=utf-8","transfer-encoding":"chunked","server":"GitHub.com","status":"200 OK","vary":"X-PJAX, Accept-Encoding, Accept, X-Requested-With, Accept-Encoding","etag":"W/\"9b99532109019b7f2e135df1ef786764\"","cache-control":"max-age=0, private, must-revalidate","strict-transport-security":"max-age=31536000; includeSubdomains; preload","x-frame-options":"deny","x-content-type-options":"nosniff","x-xss-protection":"1; mode=block","referrer-policy":"origin-when-cross-origin, strict-origin-when-cross-origin","expect-ct":"max-age=2592000, report-uri=\"https://api.github.com/_private/browser/errors\"","content-security-policy":"default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src 'self' uploads.github.com www.githubstatus.com collector.githubapp.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com cdn.optimizely.com logx.optimizely.com/v1/events wss://alive.github.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com; frame-ancestors 'none'; frame-src render.githubusercontent.com; img-src 'self' data: github.githubassets.com identicons.github.com collector.githubapp.com github-cloud.s3.amazonaws.com *.githubusercontent.com; manifest-src 'self'; media-src 'none'; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; worker-src github.com/socket-worker.js gist.github.com/socket-worker.js","x-github-request-id":"DBA3:7BCE:4522AA9:5ABB66B:5FC11734"}
+[debug] [2020-11-27T15:11:49.183Z] >>> HTTP REQUEST GET https://api.github.com/user  
+ 
+[debug] [2020-11-27T15:11:49.506Z] <<< HTTP RESPONSE 200 {"date":"Fri, 27 Nov 2020 15:11:49 GMT","content-type":"application/json; charset=utf-8","content-length":"1423","server":"GitHub.com","status":"200 OK","cache-control":"private, max-age=60, s-maxage=60","vary":"Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept, X-Requested-With, Accept-Encoding","etag":"\"fcfbc3aad4fc69c1e6236d392a5ef828590ad4ff2fdc5deb594ac2912d379655\"","last-modified":"Fri, 27 Nov 2020 15:11:48 GMT","x-oauth-scopes":"read:user, repo","x-accepted-oauth-scopes":"","x-oauth-client-id":"89cf50f02ac6aaed3484","x-github-media-type":"github.v3","x-ratelimit-limit":"5000","x-ratelimit-remaining":"4999","x-ratelimit-reset":"1606493509","x-ratelimit-used":"1","access-control-expose-headers":"ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset","access-control-allow-origin":"*","strict-transport-security":"max-age=31536000; includeSubdomains; preload","x-frame-options":"deny","x-content-type-options":"nosniff","x-xss-protection":"1; mode=block","referrer-policy":"origin-when-cross-origin, strict-origin-when-cross-origin","content-security-policy":"default-src 'none'","x-github-request-id":"DBA6:76C7:7431EE6:8693CCF:5FC11735"}
+[info] 
+[info] ✔  Success! Logged into GitHub as andrei0mihai 
+[info] 
+[debug] [2020-11-27T15:12:19.419Z] >>> HTTP REQUEST GET https://api.github.com/repos/babylon-js/actions/secrets/public-key?type=owner  
+ 
+[debug] [2020-11-27T15:12:19.697Z] <<< HTTP RESPONSE 404 {"date":"Fri, 27 Nov 2020 15:12:19 GMT","content-type":"application/json; charset=utf-8","content-length":"74","server":"GitHub.com","status":"404 Not Found","x-oauth-scopes":"read:user, repo","x-accepted-oauth-scopes":"repo","x-oauth-client-id":"89cf50f02ac6aaed3484","x-github-media-type":"github.v3","x-ratelimit-limit":"5000","x-ratelimit-remaining":"4998","x-ratelimit-reset":"1606493509","x-ratelimit-used":"2","access-control-expose-headers":"ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset","access-control-allow-origin":"*","strict-transport-security":"max-age=31536000; includeSubdomains; preload","x-frame-options":"deny","x-content-type-options":"nosniff","x-xss-protection":"1; mode=block","referrer-policy":"origin-when-cross-origin, strict-origin-when-cross-origin","content-security-policy":"default-src 'none'","vary":"Accept-Encoding, Accept, X-Requested-With","x-github-request-id":"BABD:102EC:73D73E4:863A1C3:5FC11753"}
+[debug] [2020-11-27T15:12:19.697Z] <<< HTTP RESPONSE BODY Not Found {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2020-11-27T15:12:36.150Z] >>> HTTP REQUEST GET https://api.github.com/repos/andrei0mihai/babylon-js/actions/secrets/public-key?type=owner  
+ 
+[debug] [2020-11-27T15:12:36.395Z] <<< HTTP RESPONSE 200 {"date":"Fri, 27 Nov 2020 15:12:36 GMT","content-type":"application/json; charset=utf-8","content-length":"84","server":"GitHub.com","status":"200 OK","cache-control":"private, max-age=60, s-maxage=60","vary":"Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept, X-Requested-With, Accept-Encoding","etag":"\"43459a37764721403441a8e2db24608b62b254c82b7d34ab4c16d7b8be0c0e4c\"","x-oauth-scopes":"read:user, repo","x-accepted-oauth-scopes":"","x-oauth-client-id":"89cf50f02ac6aaed3484","x-github-media-type":"github.v3","x-ratelimit-limit":"5000","x-ratelimit-remaining":"4997","x-ratelimit-reset":"1606493509","x-ratelimit-used":"3","access-control-expose-headers":"ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset","access-control-allow-origin":"*","strict-transport-security":"max-age=31536000; includeSubdomains; preload","x-frame-options":"deny","x-content-type-options":"nosniff","x-xss-protection":"1; mode=block","referrer-policy":"origin-when-cross-origin, strict-origin-when-cross-origin","content-security-policy":"default-src 'none'","x-github-request-id":"DBB2:8540:701A826:81FA99B:5FC11764"}
+[debug] [2020-11-27T15:12:36.396Z] >>> HTTP REQUEST GET https://api.github.com/repos/andrei0mihai/babylon-js  
+ 
+[debug] [2020-11-27T15:12:36.724Z] <<< HTTP RESPONSE 200 {"date":"Fri, 27 Nov 2020 15:12:36 GMT","content-type":"application/json; charset=utf-8","content-length":"5304","server":"GitHub.com","status":"200 OK","cache-control":"private, max-age=60, s-maxage=60","vary":"Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept, X-Requested-With, Accept-Encoding","etag":"\"b7be40d9af5e5ebc3c1dee8bf2729ea7fa6f21829c77bcbb2b3672a9ed3fa64c\"","last-modified":"Wed, 18 Nov 2020 15:52:53 GMT","x-oauth-scopes":"read:user, repo","x-accepted-oauth-scopes":"repo","x-oauth-client-id":"89cf50f02ac6aaed3484","x-github-media-type":"github.v3","x-ratelimit-limit":"5000","x-ratelimit-remaining":"4996","x-ratelimit-reset":"1606493509","x-ratelimit-used":"4","access-control-expose-headers":"ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset","access-control-allow-origin":"*","strict-transport-security":"max-age=31536000; includeSubdomains; preload","x-frame-options":"deny","x-content-type-options":"nosniff","x-xss-protection":"1; mode=block","referrer-policy":"origin-when-cross-origin, strict-origin-when-cross-origin","content-security-policy":"default-src 'none'","x-github-request-id":"BABF:84A5:3FCCB4E:49BFC25:5FC11764"}
+[debug] [2020-11-27T15:12:36.726Z] >>> HTTP REQUEST POST https://iam.googleapis.com/v1/projects/babylon-js-with-angular/serviceAccounts  
+ {"accountId":"github-action-313910194","serviceAccount":{"displayName":"GitHub Actions (andrei0mihai/babylon-js)","description":"A service account with permission to deploy to Firebase Hosting for the GitHub repository andrei0mihai/babylon-js"}}
+[debug] [2020-11-27T15:12:37.973Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:12:37 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-27T15:12:37.974Z] >>> HTTP REQUEST GET https://iam.googleapis.com/v1/projects/babylon-js-with-angular/serviceAccounts/github-action-313910194@babylon-js-with-angular.iam.gserviceaccount.com  
+ 
+[debug] [2020-11-27T15:12:37.974Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/babylon-js-with-angular:getIamPolicy  
+ 
+[debug] [2020-11-27T15:12:38.907Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:12:38 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-27T15:12:38.924Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:12:38 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=811","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-27T15:12:38.924Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/babylon-js-with-angular:setIamPolicy  
+ {"policy":{"version":1,"etag":"BwW1GA2n0fE=","bindings":[{"role":"roles/cloudfunctions.serviceAgent","members":["serviceAccount:service-824212666012@gcf-admin-robot.iam.gserviceaccount.com"]},{"role":"roles/editor","members":["serviceAccount:babylon-js-with-angular@appspot.gserviceaccount.com"]},{"role":"roles/firebase.managementServiceAgent","members":["serviceAccount:firebase-service-account@firebase-sa-management.iam.gserviceaccount.com"]},{"role":"roles/firebase.sdkAdminServiceAgent","members":["serviceAccount:firebase-adminsdk-cp9xj@babylon-js-with-angular.iam.gserviceaccount.com"]},{"role":"roles/firebaserules.system","members":["serviceAccount:service-824212666012@firebase-rules.iam.gserviceaccount.com"]},{"role":"roles/iam.serviceAccountTokenCreator","members":["serviceAccount:firebase-adminsdk-cp9xj@babylon-js-with-angular.iam.gserviceaccount.com"]},{"role":"roles/owner","members":["user:andrei.mihai@softvision.com"]},{"role":"roles/firebaseauth.admin","members":["serviceAccount:github-action-313910194@babylon-js-with-angular.iam.gserviceaccount.com"]},{"role":"roles/serviceusage.apiKeysViewer","members":["serviceAccount:github-action-313910194@babylon-js-with-angular.iam.gserviceaccount.com"]},{"role":"roles/firebasehosting.admin","members":["serviceAccount:github-action-313910194@babylon-js-with-angular.iam.gserviceaccount.com"]},{"role":"roles/run.viewer","members":["serviceAccount:github-action-313910194@babylon-js-with-angular.iam.gserviceaccount.com"]}]},"updateMask":"bindings"}
+[debug] [2020-11-27T15:12:40.154Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:12:40 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=1086","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-27T15:12:40.155Z] >>> HTTP REQUEST POST https://iam.googleapis.com/v1/projects/babylon-js-with-angular/serviceAccounts/github-action-313910194@babylon-js-with-angular.iam.gserviceaccount.com/keys  
+ {"keyAlgorithm":"KEY_ALG_UNSPECIFIED","privateKeyType":"TYPE_GOOGLE_CREDENTIALS_FILE"}
+[debug] [2020-11-27T15:12:41.545Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 27 Nov 2020 15:12:41 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] ✔  Created service account github-action-313910194 with Firebase Hosting admin permissions. 
+[debug] [2020-11-27T15:12:41.571Z] >>> HTTP REQUEST PUT https://api.github.com/repos/andrei0mihai/babylon-js/actions/secrets/FIREBASE_SERVICE_ACCOUNT_BABYLON_JS_WITH_ANGULAR  
+ {"encrypted_value":"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","key_id":"568250167242549743"}
+[debug] [2020-11-27T15:12:41.991Z] <<< HTTP RESPONSE 201 {"date":"Fri, 27 Nov 2020 15:12:41 GMT","content-type":"application/json; charset=utf-8","content-length":"2","server":"GitHub.com","status":"201 Created","cache-control":"private, max-age=60, s-maxage=60","vary":"Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept, X-Requested-With, Accept-Encoding","etag":"\"17c85632e5446a975b2dbc05d4156a1f4b2a126a5499e7935eda4ce1389e33f6\"","x-oauth-scopes":"read:user, repo","x-accepted-oauth-scopes":"","x-oauth-client-id":"89cf50f02ac6aaed3484","x-github-media-type":"github.v3","x-ratelimit-limit":"5000","x-ratelimit-remaining":"4995","x-ratelimit-reset":"1606493509","x-ratelimit-used":"5","access-control-expose-headers":"ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset","access-control-allow-origin":"*","strict-transport-security":"max-age=31536000; includeSubdomains; preload","x-frame-options":"deny","x-content-type-options":"nosniff","x-xss-protection":"1; mode=block","referrer-policy":"origin-when-cross-origin, strict-origin-when-cross-origin","content-security-policy":"default-src 'none'","x-github-request-id":"BAC5:8D42:3DBF4EF:4772231:5FC11769"}
+[info] ✔  Uploaded service account JSON to GitHub as secret FIREBASE_SERVICE_ACCOUNT_BABYLON_JS_WITH_ANGULAR. 
+[info] i  You can manage your secrets at https://github.com/andrei0mihai/babylon-js/settings/secrets. 
+[info] 
+[info] 
+[info] ✔  Created workflow file /Users/andrei.mihai/babylonjs/.github/workflows/firebase-hosting-pull-request.yml 
+[info] 
+[info] ✔  Created workflow file /Users/andrei.mihai/babylonjs/.github/workflows/firebase-hosting-merge.yml 
+[info] 
+[info] i  Action required: Visit this URL to revoke authorization for the Firebase CLI GitHub OAuth App: 
+[info] https://github.com/settings/connections/applications/89cf50f02ac6aaed3484
+[info] i  Action required: Push any new workflow file(s) to your repo 
+[info] 
+=== Storage Setup
+[info] 
+[info] Firebase Storage Security Rules allow you to define how and when to allow
+[info] uploads and downloads. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[info] 
+=== Emulators Setup
+[info] i  firestore: downloading cloud-firestore-emulator-v1.11.9.jar... {"metadata":{"emulator":{"name":"firestore"},"message":"downloading cloud-firestore-emulator-v1.11.9.jar..."}}
+[debug] [2020-11-27T15:14:10.304Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v1.11.9.jar [none]
+[debug] [2020-11-27T15:14:10.979Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v1.11.9.jar 200
+[debug] [2020-11-27T15:14:10.979Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v1.11.9.jar [stream]
+[info] i  database: downloading firebase-database-emulator-v4.7.1.jar... {"metadata":{"emulator":{"name":"database"},"message":"downloading firebase-database-emulator-v4.7.1.jar..."}}
+[debug] [2020-11-27T15:14:18.612Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/firebase-database-emulator-v4.7.1.jar [none]
+[debug] [2020-11-27T15:14:19.149Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/firebase-database-emulator-v4.7.1.jar 200
+[debug] [2020-11-27T15:14:19.149Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/firebase-database-emulator-v4.7.1.jar [stream]
+[info] i  pubsub: downloading pubsub-emulator-0.1.0.zip... {"metadata":{"emulator":{"name":"pubsub"},"message":"downloading pubsub-emulator-0.1.0.zip..."}}
+[debug] [2020-11-27T15:14:23.272Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/pubsub-emulator-0.1.0.zip [none]
+[debug] [2020-11-27T15:14:23.847Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/pubsub-emulator-0.1.0.zip 200
+[debug] [2020-11-27T15:14:23.847Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/pubsub-emulator-0.1.0.zip [stream]
+[info] i  ui: downloading ui-v1.2.2.zip... {"metadata":{"emulator":{"name":"ui"},"message":"downloading ui-v1.2.2.zip..."}}
+[debug] [2020-11-27T15:14:28.705Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.2.2.zip [none]
+[info] 
+=== Remoteconfig Setup
+[debug] [2020-11-27T15:14:28.875Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.2.2.zip 200
+[debug] [2020-11-27T15:14:28.875Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.2.2.zip [stream]

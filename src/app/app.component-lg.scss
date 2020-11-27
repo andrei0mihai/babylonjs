@@ -1,0 +1,30 @@
+@media only screen and (min-width: 415px) {
+  .content {
+    justify-content: space-between;
+
+    .canvas {
+      min-width: 360px;
+      width: 50%;
+    }
+
+    .clicks {
+      font-size: xx-large;
+      position: static;
+    }
+
+    .fps-label {
+      font-size: xx-large;
+      position: static;
+    }
+  }
+
+  .header-container {
+    position: static;
+
+    .header {
+      border: 1px solid black;
+      right: 0;
+      text-align: center;
+    }
+  }
+}
