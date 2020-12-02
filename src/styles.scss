@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+.body {
+  margin: 0;
+  width: 100%;
+}
+
+@media only screen and (min-width: 415px) {
+  .body {
+    margin: 0 auto;
+    width: 70%;
+  }
+}

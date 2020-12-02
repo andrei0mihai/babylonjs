@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "babylon-js-with-angular": {
+      "hosting": {
+        "babylonjs": [
+          "babylon-js-with-angular"
+        ]
+      }
+    }
+  }
+}
