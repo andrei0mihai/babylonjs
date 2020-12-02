@@ -240,7 +240,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     const skyboxMaterial = new StandardMaterial('skyBox', scene);
     skyboxMaterial.backFaceCulling = false;
     skyboxMaterial.reflectionTexture = new CubeTexture(
-      'textures/TropicalSunnyDay',
+      'https://github.com/andrei0mihai/babylonjs/blob/master/src/assets/textures/skybox',
       scene
     );
     skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
