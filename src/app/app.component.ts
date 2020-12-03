@@ -1,5 +1,4 @@
 import { DOCUMENT } from '@angular/common';
-import { isNull } from '@angular/compiler/src/output/output_ast';
 import {
   AfterViewInit,
   Component,
@@ -9,6 +8,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
 import {
   ActionManager,
   Animation,
@@ -20,25 +20,19 @@ import {
   Engine,
   ExecuteCodeAction,
   FresnelParameters,
-  GPUParticleSystem,
-  HemisphericLight,
   IParticleSystem,
   Mesh,
   MeshBuilder,
-  NoiseProceduralTexture,
   ParticleHelper,
-  ParticleSystem,
   Scene,
   ShadowGenerator,
-  SphereParticleEmitter,
   StandardMaterial,
   Texture,
   Vector3,
 } from '@babylonjs/core';
-import {
-  GrassProceduralTexture,
-  WoodProceduralTexture,
-} from '@babylonjs/procedural-textures';
+import { GrassProceduralTexture } from '@babylonjs/procedural-textures';
+import { asyncScheduler, scheduled } from 'rxjs';
+import { concatAll, toArray } from 'rxjs/operators';
 import { Constants } from './constants';
 
 @Component({
@@ -71,6 +65,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   );
 
   constructor(
+    private angularFireStorage: AngularFireStorage,
     private readonly ngZone: NgZone,
     @Inject(DOCUMENT) readonly document: Document
   ) {
@@ -229,21 +224,60 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.scene.fogEnd = 60;
     this.scene.fogDensity = 0.02;
 
-    this.scene.registerBeforeRender(() => {
-      camera.alpha += 0.001 * this.scene.getAnimationRatio();
-    });
+    this.scene.registerBeforeRender(
+      () => (camera.alpha += 0.001 * this.scene.getAnimationRatio())
+    );
   }
 
   private createSkyBox(scene: Scene): void {
     // Skybox
-    const skybox = Mesh.CreateBox('skyBox', 100.0, scene);
+    const skybox = Mesh.CreateBox('skyBox', 100, scene);
     const skyboxMaterial = new StandardMaterial('skyBox', scene);
     skyboxMaterial.backFaceCulling = false;
-    skyboxMaterial.reflectionTexture = new CubeTexture(
-      'https://github.com/andrei0mihai/babylonjs/blob/master/src/assets/textures/skybox',
-      scene
-    );
-    skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
+
+    const px$ = this.angularFireStorage
+      .refFromURL(
+        'https://firebasestorage.googleapis.com/v0/b/babylon-js-with-angular.appspot.com/o/skybox/skybox_px.jpg'
+      )
+      .getDownloadURL();
+    const py$ = this.angularFireStorage
+      .refFromURL(
+        'https://firebasestorage.googleapis.com/v0/b/babylon-js-with-angular.appspot.com/o/skybox/skybox_py.jpg'
+      )
+      .getDownloadURL();
+    const pz$ = this.angularFireStorage
+      .refFromURL(
+        'https://firebasestorage.googleapis.com/v0/b/babylon-js-with-angular.appspot.com/o/skybox/skybox_pz.jpg'
+      )
+      .getDownloadURL();
+    const nx$ = this.angularFireStorage
+      .refFromURL(
+        'https://firebasestorage.googleapis.com/v0/b/babylon-js-with-angular.appspot.com/o/skybox/skybox_nx.jpg'
+      )
+      .getDownloadURL();
+    const ny$ = this.angularFireStorage
+      .refFromURL(
+        'https://firebasestorage.googleapis.com/v0/b/babylon-js-with-angular.appspot.com/o/skybox/skybox_ny.jpg'
+      )
+      .getDownloadURL();
+    const nz$ = this.angularFireStorage
+      .refFromURL(
+        'https://firebasestorage.googleapis.com/v0/b/babylon-js-with-angular.appspot.com/o/skybox/skybox_nz.jpg'
+      )
+      .getDownloadURL();
+
+    scheduled([px$, py$, pz$, nx$, ny$, nz$], asyncScheduler)
+      .pipe(concatAll(), toArray())
+      .subscribe((files: string[]) => {
+        skyboxMaterial.reflectionTexture = new CubeTexture(
+          'https://firebasestorage.googleapis.com/v0/b/babylon-js-with-angular.appspot.com/o/skybox',
+          scene,
+          null,
+          undefined,
+          files
+        );
+        skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
+      });
     skyboxMaterial.diffuseColor = new Color3(0, 0, 0);
     skyboxMaterial.specularColor = new Color3(0, 0, 0);
     skyboxMaterial.disableLighting = true;
