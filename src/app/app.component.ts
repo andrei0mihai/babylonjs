@@ -20,12 +20,15 @@ import {
   Engine,
   ExecuteCodeAction,
   FresnelParameters,
+  HardwareScalingOptimization,
   IParticleSystem,
   Mesh,
   MeshBuilder,
   ParticleHelper,
   PointerDragBehavior,
   Scene,
+  SceneOptimizer,
+  SceneOptimizerOptions,
   ShadowGenerator,
   StandardMaterial,
   Texture,
@@ -85,11 +88,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     // be aware that we have to setup the scene before
     this.ngZone.runOutsideAngular(() => {
       let freshRender = true;
-      const element = this.document.getElementById('fpsLabel');
+      const fpsLabelElement = this.document.getElementById('fpsLabel');
 
       this.engine.runRenderLoop(() => {
-        if (element) {
-          element.innerHTML = this.engine.getFps().toFixed() + ' fps';
+        if (fpsLabelElement) {
+          fpsLabelElement.innerHTML = this.engine.getFps().toFixed() + ' fps';
         }
 
         if (freshRender) {
@@ -103,6 +106,18 @@ export class AppComponent implements OnInit, AfterViewInit {
       });
       window.addEventListener('resize', () => this.engine.resize());
     });
+  }
+
+  onChangeFog(event: Event): void {
+    if ((event.target as HTMLInputElement).checked) {
+      this.scene.fogMode = Scene.FOGMODE_EXP;
+      this.scene.fogColor = new Color3(0.9, 0.9, 0.9);
+      this.scene.fogStart = 20;
+      this.scene.fogEnd = 60;
+      this.scene.fogDensity = 0.02;
+    } else {
+      this.scene.fogMode = Scene.FOGMODE_NONE;
+    }
   }
 
   private createCamera(
@@ -200,14 +215,22 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private createScene(canvasRef: ElementRef<HTMLCanvasElement>): void {
     const canvas = canvasRef.nativeElement;
+    const options = new SceneOptimizerOptions();
 
     if (window.innerWidth < 415) {
       canvas.style.height = '100vh';
       canvas.style.width = '100%';
     }
 
-    this.engine = new Engine(canvas, true);
+    this.engine = new Engine(canvas);
     this.scene = new Scene(this.engine);
+
+    options.addOptimization(new HardwareScalingOptimization(0, 1));
+    // Optimizer
+    new SceneOptimizer(this.scene, options).start();
+
+    // by setting blockfreeActiveMeshesAndRenderingGroups we tell the engine to insert all meshes without indexing and checking them
+    this.scene.blockfreeActiveMeshesAndRenderingGroups = true;
 
     // camera
     this.createCamera(this.scene, canvas);
@@ -228,12 +251,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.createSkyBox(this.scene);
 
-    // Fog
-    this.scene.fogMode = Scene.FOGMODE_EXP;
-    this.scene.fogColor = new Color3(0.9, 0.9, 0.9);
-    this.scene.fogStart = 20;
-    this.scene.fogEnd = 60;
-    this.scene.fogDensity = 0.02;
+    // we have to set it back to its original state
+    this.scene.blockfreeActiveMeshesAndRenderingGroups = false;
 
     // replace this with animation from createCamera
     // this.scene.registerBeforeRender(

@@ -13,6 +13,14 @@
     position: absolute;
   }
 
+  .fog {
+    display: flex;
+    align-items: center;
+    font-size: x-small;
+    position: absolute;
+    bottom: 0;
+  }
+
   .fps-label {
     font-size: small;
     position: absolute;

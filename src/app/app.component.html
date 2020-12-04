@@ -6,7 +6,11 @@
   <div>
     <div class="fps-label" id="fpsLabel"></div>
     <div class="clicks">IcoSphere touched {{ clickNumber }} times</div>
+    <div class="fog">
+      <label for="fog">Fog</label>
+      <input type="checkbox" name="fog" (change)="onChangeFog($event)" />
+    </div>
   </div>
 
-  <canvas #rCanvas id="rCanvas" class="canvas"></canvas>
+  <canvas #rCanvas class="canvas"></canvas>
 </div>
