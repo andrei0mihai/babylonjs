@@ -24,6 +24,7 @@ import {
   Mesh,
   MeshBuilder,
   ParticleHelper,
+  PointerDragBehavior,
   Scene,
   ShadowGenerator,
   StandardMaterial,
@@ -61,7 +62,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     'position.y',
     Constants.FPS,
     Animation.ANIMATIONTYPE_FLOAT,
-    Animation.ANIMATIONLOOPMODE_RELATIVE
+    Animation.ANIMATIONLOOPMODE_CYCLE
   );
 
   constructor(
@@ -107,20 +108,23 @@ export class AppComponent implements OnInit, AfterViewInit {
   private createCamera(
     scene: Scene,
     hTMLCanvasElement: HTMLCanvasElement
-  ): ArcRotateCamera {
+  ): void {
     const camera = new ArcRotateCamera(
       'camera',
-      0,
-      0,
-      10,
+      (3 * Math.PI) / 2,
+      Math.PI / 8,
+      100,
       Vector3.Zero(),
       scene
     );
-    camera.setPosition(new Vector3(0, 5, -10));
+    camera.setPosition(new Vector3(0, 5, -15));
     camera.attachControl(hTMLCanvasElement, true);
     camera.upperBetaLimit = Math.PI / 2;
-    camera.lowerRadiusLimit = 4;
-    return camera;
+    camera.lowerRadiusLimit = 10;
+    camera.upperRadiusLimit = 50;
+    camera.useBouncingBehavior = true;
+    camera.useAutoRotationBehavior = true;
+    camera.useFramingBehavior = true;
   }
 
   /**
@@ -129,15 +133,19 @@ export class AppComponent implements OnInit, AfterViewInit {
    * @param scene Local File Access
    */
   private createGround(scene: Scene): Mesh {
-    const ground = Mesh.CreateGround('Mirror', 100, 100, 1, scene);
+    const ground = Mesh.CreateGround('ground', 100, 100, 1, scene);
     const groundMaterial = new StandardMaterial('ground', scene);
-    ground.scaling = new Vector3(1, 0.01, 1);
-    ground.material = groundMaterial;
     const groundTexture = new GrassProceduralTexture(
       'woodProceduralTexture',
       2048,
       scene
     );
+
+    // disabling bounding info sync if no collisions must be calculated
+    ground.doNotSyncBoundingInfo = true;
+
+    ground.scaling = new Vector3(1, 0.01, 1);
+    ground.material = groundMaterial;
     groundMaterial.ambientTexture = groundTexture;
     // ground.material.wireframe = true;
     ground.position = new Vector3(0, -2, 0);
@@ -173,7 +181,9 @@ export class AppComponent implements OnInit, AfterViewInit {
       { diameter: 1.9, segments: 32 },
       scene
     );
-
+    // disabling bounding info sync if no collisions must be calculated
+    sphereSpark.doNotSyncBoundingInfo = true;
+    sphereSmoke.doNotSyncBoundingInfo = true;
     sphereSpark.isVisible = false;
     sphereSmoke.isVisible = false;
 
@@ -199,7 +209,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.engine = new Engine(canvas, true);
     this.scene = new Scene(this.engine);
 
-    const camera = this.createCamera(this.scene, canvas);
+    // camera
+    this.createCamera(this.scene, canvas);
     const shadowGenerator = new ShadowGenerator(
       1024,
       this.createLight(this.scene)
@@ -211,7 +222,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     // create ground and receive shadows
     this.createGround(this.scene).receiveShadows = true;
 
-    this.projectShadow(shadowGenerator, this.createTorus(this.scene));
+    this.projectShadow(shadowGenerator, this.createIcoSphere(this.scene));
 
     this.createParticleSystem(this.scene);
 
@@ -224,17 +235,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.scene.fogEnd = 60;
     this.scene.fogDensity = 0.02;
 
-    this.scene.registerBeforeRender(
-      () => (camera.alpha += 0.001 * this.scene.getAnimationRatio())
-    );
+    // replace this with animation from createCamera
+    // this.scene.registerBeforeRender(
+    //   () => (camera.alpha += 0.001 * this.scene.getAnimationRatio())
+    // );
   }
 
   private createSkyBox(scene: Scene): void {
-    // Skybox
     const skybox = Mesh.CreateBox('skyBox', 100, scene);
     const skyboxMaterial = new StandardMaterial('skyBox', scene);
-    skyboxMaterial.backFaceCulling = false;
-
     const px$ = this.angularFireStorage
       .refFromURL(
         'https://firebasestorage.googleapis.com/v0/b/babylon-js-with-angular.appspot.com/o/skybox/skybox_px.jpg'
@@ -266,6 +275,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       )
       .getDownloadURL();
 
+    // disabling bounding info sync if no collisions must be calculated
+    skybox.doNotSyncBoundingInfo = false;
+
+    skyboxMaterial.backFaceCulling = false;
     scheduled([px$, py$, pz$, nx$, ny$, nz$], asyncScheduler)
       .pipe(concatAll(), toArray())
       .subscribe((files: string[]) => {
@@ -284,38 +297,109 @@ export class AppComponent implements OnInit, AfterViewInit {
     skybox.material = skyboxMaterial;
   }
 
-  private createTorus(scene: Scene): Mesh {
-    const torus = MeshBuilder.CreateTorus('torus', { diameter: 1 }, scene);
-    torus.position = new Vector3(0, 2, 0);
+  private createIcoSphere(scene: Scene): Mesh[] {
+    const keyFramesR = [];
+    const material = new StandardMaterial('material', scene);
+    const cloneMaterial = material.clone('cloneMaterial');
+    const mesh = Mesh.CreateIcoSphere('icoSphere', { radius: 1 }, scene);
+    const clone = mesh.clone('icoSphere2');
+    const pointerDragBehavior = new PointerDragBehavior({
+      dragAxis: new Vector3(0, 1, 0),
+    });
+
+    // mesh behaviour
+    mesh.addBehavior(pointerDragBehavior);
+
+    // disabling bounding info sync if no collisions must be calculated
+    mesh.doNotSyncBoundingInfo = false;
+    clone.doNotSyncBoundingInfo = false;
+
+    clone.material = cloneMaterial;
+    clone.position = new Vector3(3, 2, 0);
+    mesh.position = new Vector3(0, 2, 0);
+
+    this.angularFireStorage
+      .refFromURL(
+        'https://firebasestorage.googleapis.com/v0/b/babylon-js-with-angular.appspot.com/o/paper_rough_texture.jpg'
+      )
+      .getDownloadURL()
+      .subscribe(
+        (url) => (material.reflectionTexture = new CubeTexture(url, scene))
+      );
+
+    // red
+    // material.diffuseColor = Color3.Red();
+    // green
+    // material.emissiveColor = Color3.Yellow();
+
+    // how much it shines from the light source
+    // material.specularPower = 10;
+
+    material.reflectionFresnelParameters = new FresnelParameters();
+    material.reflectionFresnelParameters.leftColor = Color3.Magenta();
+    material.reflectionFresnelParameters.rightColor = Color3.Yellow();
+    material.reflectionFresnelParameters.bias = 0.1;
+    material.reflectionFresnelParameters.power = 2;
+
+    // material.emissiveFresnelParameters = new FresnelParameters();
+    // material.emissiveFresnelParameters.bias = 0.6;
+    // material.emissiveFresnelParameters.power = 160;
+    // material.emissiveFresnelParameters.leftColor = Color3.Teal();
+    // material.emissiveFresnelParameters.rightColor = Color3.Purple();
+
+    // removes shadow
+    // material.opacityFresnelParameters = new FresnelParameters();
+    // material.opacityFresnelParameters.leftColor = Color3.Blue();
+    // material.opacityFresnelParameters.rightColor = Color3.Magenta();
+
+    // material.refractionFresnelParameters = new FresnelParameters();
+    // material.refractionFresnelParameters.leftColor = Color3.Blue();
+    // material.refractionFresnelParameters.rightColor = Color3.Magenta();
+    // material.indexOfRefraction = 1.05;
 
     // add material	to mesh
-    const torusMaterial = new StandardMaterial('torusMaterial', scene);
-    torus.material = torusMaterial;
-    torusMaterial.diffuseColor = new Color3(1, 0.5, 0.5);
-    torusMaterial.refractionFresnelParameters = new FresnelParameters();
-    torusMaterial.refractionFresnelParameters.bias = 0.5;
-    torusMaterial.refractionFresnelParameters.power = 16;
-    torusMaterial.refractionFresnelParameters.leftColor = Color3.Black();
-    torusMaterial.refractionFresnelParameters.rightColor = Color3.White();
-    torusMaterial.indexOfRefraction = 1.05;
+    mesh.material = material;
 
-    // click event on torus
-    torus.actionManager = new ActionManager(scene);
-    torus.actionManager.registerAction(
+    // click event on mesh
+    mesh.actionManager = new ActionManager(scene);
+    mesh.actionManager.registerAction(
       new ExecuteCodeAction(
         ActionManager.OnPickUpTrigger,
         () => this.clickNumber++
       )
     );
 
-    return torus;
+    // no shadow if alpha !== 1
+    cloneMaterial.alpha = 0.5;
+
+    // add animations
+    clone.animations = [];
+    clone.animations.push(this.rotationAnim);
+    clone.animations.push(this.wobbleAnim);
+    keyFramesR.push({ frame: 0, value: 0 });
+    keyFramesR.push({ frame: Constants.FPS, value: Math.PI });
+    keyFramesR.push({ frame: 2 * Constants.FPS, value: 0 });
+    this.rotationAnim.setKeys(keyFramesR);
+    this.wobbleAnim.setKeys(keyFramesR);
+    scene.beginDirectAnimation(
+      clone,
+      [this.rotationAnim, this.wobbleAnim],
+      0,
+      2 * Constants.FPS,
+      true
+    );
+
+    return [mesh, clone];
   }
 
-  private projectShadow(shadowGenerator: ShadowGenerator, mesh: Mesh): void {
+  private projectShadow(
+    shadowGenerator: ShadowGenerator,
+    meshes: Mesh[]
+  ): void {
     const shadowMap = shadowGenerator.getShadowMap();
 
     if (shadowMap !== null && shadowMap.renderList !== null) {
-      shadowMap.renderList.push(mesh);
+      shadowMap.renderList.push(...meshes);
     }
   }
 }
