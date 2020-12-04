@@ -10,6 +10,15 @@
       <label for="fog">Fog</label>
       <input type="checkbox" name="fog" (change)="onChangeFog($event)" />
     </div>
+    <div class="particles">
+      <label for="particles">Particles</label>
+      <input
+        type="checkbox"
+        name="particles"
+        checked="true"
+        (change)="onChangeParticles($event)"
+      />
+    </div>
   </div>
 
   <canvas #rCanvas class="canvas"></canvas>

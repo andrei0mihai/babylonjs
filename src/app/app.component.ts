@@ -120,6 +120,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onChangeParticles(event: Event): void {
+    if ((event.target as HTMLInputElement).checked) {
+      this.scene.particlesEnabled = true;
+    } else {
+      this.scene.particlesEnabled = false;
+    }
+  }
+
   private createCamera(
     scene: Scene,
     hTMLCanvasElement: HTMLCanvasElement
@@ -203,19 +211,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     sphereSmoke.isVisible = false;
 
     // 1st Particle Sytem - Circles
-    ParticleHelper.CreateFromSnippetAsync('2JRD1A#2', scene, false); // 2nd Particle Sytem - Core
-    ParticleHelper.CreateFromSnippetAsync('EXUQ7M#5', scene, false); // 3rd Particle Sytem - Sparks
-    ParticleHelper.CreateFromSnippetAsync('UY098C#3', scene, false).then(
+    ParticleHelper.CreateFromSnippetAsync('2JRD1A#2', scene, true); // 2nd Particle Sytem - Core
+    ParticleHelper.CreateFromSnippetAsync('EXUQ7M#5', scene, true); // 3rd Particle Sytem - Sparks
+    ParticleHelper.CreateFromSnippetAsync('UY098C#3', scene, true).then(
       (system: IParticleSystem) => (system.emitter = sphereSpark)
     ); // 4th Particle Sytem - Smoke
-    ParticleHelper.CreateFromSnippetAsync('UY098C#6', scene, false).then(
+    ParticleHelper.CreateFromSnippetAsync('UY098C#6', scene, true).then(
       (system: IParticleSystem) => (system.emitter = sphereSmoke)
     );
   }
 
   private createScene(canvasRef: ElementRef<HTMLCanvasElement>): void {
     const canvas = canvasRef.nativeElement;
-    const options = new SceneOptimizerOptions();
 
     if (window.innerWidth < 415) {
       canvas.style.height = '100vh';
@@ -224,10 +231,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.engine = new Engine(canvas);
     this.scene = new Scene(this.engine);
-
-    options.addOptimization(new HardwareScalingOptimization(0, 1));
-    // Optimizer
-    new SceneOptimizer(this.scene, options).start();
 
     // by setting blockfreeActiveMeshesAndRenderingGroups we tell the engine to insert all meshes without indexing and checking them
     this.scene.blockfreeActiveMeshesAndRenderingGroups = true;
@@ -253,6 +256,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     // we have to set it back to its original state
     this.scene.blockfreeActiveMeshesAndRenderingGroups = false;
+
+    // Optimizer
+    SceneOptimizer.OptimizeAsync(this.scene);
 
     // replace this with animation from createCamera
     // this.scene.registerBeforeRender(
