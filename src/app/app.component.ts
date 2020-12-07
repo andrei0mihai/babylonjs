@@ -165,8 +165,16 @@ export class AppComponent implements OnInit, AfterViewInit {
       scene
     );
 
+    ground.convertToUnIndexedMesh();
+
+    ground.cullingStrategy = AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
+
     // disabling bounding info sync if no collisions must be calculated
     ground.doNotSyncBoundingInfo = true;
+
+    // Every mesh has a world matrix to specify its position / rotation / scaling. This matrix is evaluated on every frame.
+    // You can improve performances by freezing this matrix. Any subsequent changes to position / rotation / scaling will then be ignore:
+    ground.freezeWorldMatrix();
 
     ground.scaling = new Vector3(1, 0.01, 1);
     ground.material = groundMaterial;
@@ -194,21 +202,15 @@ export class AppComponent implements OnInit, AfterViewInit {
    * not yet usable
    */
   private createParticleSystem(scene: Scene): void {
-    // Sphere around emitter
-    const sphere = MeshBuilder.CreateSphere(
-      'sphere',
-      { diameter: 0.01, segments: 8 },
-      scene
-    );
+    const particleSource = new AbstractMesh('particleSource', scene);
 
     // disabling bounding info sync if no collisions must be calculated
-    sphere.doNotSyncBoundingInfo = true;
+    particleSource.doNotSyncBoundingInfo = true;
 
-    sphere.material = new StandardMaterial('mat', scene);
-    sphere.material.wireframe = true;
-    sphere.position.x = -10;
-    sphere.position.y = -10;
-    sphere.position.z = -10;
+    particleSource.freezeWorldMatrix();
+
+    particleSource.cullingStrategy =
+      AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
 
     // Create a particle system
     this.particleSystem = new ParticleSystem('particles', 2000, scene);
@@ -224,7 +226,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       );
 
     // Where the particles come from
-    const particleSource = new AbstractMesh('particleSource', scene);
     particleSource.position = new Vector3(5, 0, 0);
     this.particleSystem.emitter = particleSource;
     // this.particleSystem.emitter = Vector3.Zero(); // the starting location
@@ -268,11 +269,13 @@ export class AppComponent implements OnInit, AfterViewInit {
       canvas.style.width = '100%';
     }
 
-    this.engine = new Engine(canvas);
+    this.engine = new Engine(canvas, false, undefined, true);
     this.scene = new Scene(this.engine);
 
     // by setting blockfreeActiveMeshesAndRenderingGroups we tell the engine to insert all meshes without indexing and checking them
     this.scene.blockfreeActiveMeshesAndRenderingGroups = true;
+
+    this.scene.blockMaterialDirtyMechanism = true;
 
     // camera
     this.createCamera(this.scene, canvas);
@@ -296,8 +299,13 @@ export class AppComponent implements OnInit, AfterViewInit {
     // we have to set it back to its original state
     this.scene.blockfreeActiveMeshesAndRenderingGroups = false;
 
+    this.scene.blockMaterialDirtyMechanism = false;
+
     // Optimizer
-    SceneOptimizer.OptimizeAsync(this.scene);
+    // SceneOptimizer.OptimizeAsync(this.scene);
+
+    this.scene.autoClear = false; // Color buffer
+    this.scene.autoClearDepthAndStencil = false; // Depth and stencil, obviously
 
     // replace this with animation from createCamera
     // this.scene.registerBeforeRender(
@@ -339,6 +347,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       )
       .getDownloadURL();
 
+    skybox.convertToUnIndexedMesh();
+
+    skybox.cullingStrategy = AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
+
+    skybox.freezeWorldMatrix();
+
     // disabling bounding info sync if no collisions must be calculated
     skybox.doNotSyncBoundingInfo = false;
 
@@ -359,6 +373,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     skyboxMaterial.specularColor = new Color3(0, 0, 0);
     skyboxMaterial.disableLighting = true;
     skybox.material = skyboxMaterial;
+    skybox.material.needDepthPrePass = true;
   }
 
   private createIcoSphere(scene: Scene): Mesh[] {
@@ -371,6 +386,11 @@ export class AppComponent implements OnInit, AfterViewInit {
       dragAxis: new Vector3(0, 1, 0),
     });
 
+    mesh.convertToUnIndexedMesh();
+    clone.convertToUnIndexedMesh();
+    mesh.freezeWorldMatrix();
+    clone.freezeWorldMatrix();
+
     // mesh behaviour
     mesh.addBehavior(pointerDragBehavior);
 
@@ -378,7 +398,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     mesh.doNotSyncBoundingInfo = false;
     clone.doNotSyncBoundingInfo = false;
 
+    mesh.cullingStrategy = AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
+    clone.cullingStrategy = AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
+
     clone.material = cloneMaterial;
+    clone.material.needDepthPrePass = true;
     clone.position = new Vector3(3, 2, 0);
     mesh.position = new Vector3(0, 2, 0);
 

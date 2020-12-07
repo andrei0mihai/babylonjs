@@ -9,13 +9,14 @@
 
   .clicks {
     color: red;
-    font-size: medium;
+    font-size: small;
     position: absolute;
   }
 
   .fog {
     align-items: center;
     bottom: 0;
+    color: azure;
     display: flex;
     font-size: x-small;
     position: fixed;
@@ -30,6 +31,7 @@
   .particles {
     align-items: center;
     bottom: 0;
+    color: beige;
     display: flex;
     font-size: x-small;
     position: fixed;
