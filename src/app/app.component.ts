@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import {
+  AbstractMesh,
   ActionManager,
   Animation,
   ArcRotateCamera,
@@ -20,15 +21,12 @@ import {
   Engine,
   ExecuteCodeAction,
   FresnelParameters,
-  HardwareScalingOptimization,
-  IParticleSystem,
   Mesh,
   MeshBuilder,
-  ParticleHelper,
+  ParticleSystem,
   PointerDragBehavior,
   Scene,
   SceneOptimizer,
-  SceneOptimizerOptions,
   ShadowGenerator,
   StandardMaterial,
   Texture,
@@ -53,6 +51,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   private engine: Engine;
   private scene: Scene;
 
+  private particleSystem: ParticleSystem;
+
   readonly rotationAnim = new Animation(
     'rotate',
     'rotation.y',
@@ -76,6 +76,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.canvasRef = {} as ElementRef<HTMLCanvasElement>;
     this.engine = new Engine(this.canvasRef.nativeElement);
     this.clickNumber = 0;
+    this.particleSystem = {} as ParticleSystem;
     this.scene = new Scene(this.engine);
   }
 
@@ -122,9 +123,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   onChangeParticles(event: Event): void {
     if ((event.target as HTMLInputElement).checked) {
-      this.scene.particlesEnabled = true;
+      this.particleSystem.start();
     } else {
-      this.scene.particlesEnabled = false;
+      this.particleSystem.stop();
     }
   }
 
@@ -193,32 +194,70 @@ export class AppComponent implements OnInit, AfterViewInit {
    * not yet usable
    */
   private createParticleSystem(scene: Scene): void {
-    // The Orb is made of several particle systems
-    const sphereSpark = MeshBuilder.CreateSphere(
-      'sphereSpark',
-      { diameter: 0.4, segments: 32 },
+    // Sphere around emitter
+    const sphere = MeshBuilder.CreateSphere(
+      'sphere',
+      { diameter: 0.01, segments: 8 },
       scene
     );
-    const sphereSmoke = MeshBuilder.CreateSphere(
-      'sphereSmoke',
-      { diameter: 1.9, segments: 32 },
-      scene
-    );
-    // disabling bounding info sync if no collisions must be calculated
-    sphereSpark.doNotSyncBoundingInfo = true;
-    sphereSmoke.doNotSyncBoundingInfo = true;
-    sphereSpark.isVisible = false;
-    sphereSmoke.isVisible = false;
 
-    // 1st Particle Sytem - Circles
-    ParticleHelper.CreateFromSnippetAsync('2JRD1A#2', scene, true); // 2nd Particle Sytem - Core
-    ParticleHelper.CreateFromSnippetAsync('EXUQ7M#5', scene, true); // 3rd Particle Sytem - Sparks
-    ParticleHelper.CreateFromSnippetAsync('UY098C#3', scene, true).then(
-      (system: IParticleSystem) => (system.emitter = sphereSpark)
-    ); // 4th Particle Sytem - Smoke
-    ParticleHelper.CreateFromSnippetAsync('UY098C#6', scene, true).then(
-      (system: IParticleSystem) => (system.emitter = sphereSmoke)
+    // disabling bounding info sync if no collisions must be calculated
+    sphere.doNotSyncBoundingInfo = true;
+
+    sphere.material = new StandardMaterial('mat', scene);
+    sphere.material.wireframe = true;
+    sphere.position.x = -10;
+    sphere.position.y = -10;
+    sphere.position.z = -10;
+
+    // Create a particle system
+    this.particleSystem = new ParticleSystem('particles', 2000, scene);
+
+    // Texture of each particle
+    this.angularFireStorage
+      .refFromURL(
+        'https://firebasestorage.googleapis.com/v0/b/babylon-js-with-angular.appspot.com/o/particle.jpeg'
+      )
+      .getDownloadURL()
+      .subscribe(
+        (url) => (this.particleSystem.particleTexture = new Texture(url, scene))
+      );
+
+    // Where the particles come from
+    const particleSource = new AbstractMesh('particleSource', scene);
+    particleSource.position = new Vector3(5, 0, 0);
+    this.particleSystem.emitter = particleSource;
+    // this.particleSystem.emitter = Vector3.Zero(); // the starting location
+
+    // Colors of all particles
+    this.particleSystem.color1 = new Color4(0.7, 0.8, 1.0, 1.0);
+    this.particleSystem.color2 = new Color4(0.2, 0.5, 1.0, 1.0);
+    this.particleSystem.colorDead = new Color4(0, 0, 0.2, 0.0);
+
+    // Size of each particle (random between...
+    this.particleSystem.minSize = 0.1;
+    this.particleSystem.maxSize = 0.5;
+
+    // Life time of each particle (random between...
+    this.particleSystem.minLifeTime = 0.3;
+    this.particleSystem.maxLifeTime = 1.5;
+
+    // Emission rate
+    this.particleSystem.emitRate = 1000;
+
+    /******* Emission Space ********/
+    this.particleSystem.createPointEmitter(
+      new Vector3(-7, 8, 3),
+      new Vector3(7, 8, -3)
     );
+
+    // Speed
+    this.particleSystem.minEmitPower = 1;
+    this.particleSystem.maxEmitPower = 3;
+    this.particleSystem.updateSpeed = 0.005;
+
+    // Start the particle system
+    this.particleSystem.start();
   }
 
   private createScene(canvasRef: ElementRef<HTMLCanvasElement>): void {
