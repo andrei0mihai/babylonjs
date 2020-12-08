@@ -170,7 +170,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     const groundMaterial = new StandardMaterial('ground', scene);
     const groundTexture = new GrassProceduralTexture(
       'woodProceduralTexture',
-      2048,
+      512,
       scene
     );
 
@@ -187,7 +187,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     groundMesh.scaling = new Vector3(1, 0.01, 1);
     groundMesh.material = groundMaterial;
     groundMaterial.ambientTexture = groundTexture;
-    // ground.material.wireframe = true;
+    // groundMesh.material.wireframe = true;
     groundMesh.position = new Vector3(0, -2, 0);
     return groundMesh;
   }
@@ -290,7 +290,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     // camera
     this.createCamera(this.scene, canvas);
     const shadowGenerator = new ShadowGenerator(
-      1024,
+      256,
       this.createLight(this.scene)
     );
 
@@ -306,7 +306,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.createSkyBox(this.scene);
 
-    // this.projectShadow(shadowGenerator, this.createWall(this.scene));
+    this.projectShadow(shadowGenerator, this.createWall(this.scene));
 
     // we have to set it back to its original state
     this.scene.blockfreeActiveMeshesAndRenderingGroups = false;
@@ -323,6 +323,35 @@ export class AppComponent implements OnInit, AfterViewInit {
     // this.scene.registerBeforeRender(
     //   () => (camera.alpha += 0.001 * this.scene.getAnimationRatio())
     // );
+  }
+
+  private createWall(scene: Scene): Mesh[] {
+    const wallMesh = MeshBuilder.CreateBox(
+      'wall',
+      { size: 3, width: 8, depth: 1, height: 10 },
+      scene
+    );
+    wallMesh.position = new Vector3(-2, 0, -5);
+
+    const wallMaterial = new StandardMaterial('wallMaterial', scene);
+
+    this.angularFireStorage
+      .refFromURL(
+        'https://firebasestorage.googleapis.com/v0/b/babylon-js-with-angular.appspot.com/o/rdbrick.jpg'
+      )
+      .getDownloadURL()
+      .subscribe(
+        (url) => (wallMaterial.diffuseTexture = new Texture(url, scene))
+      );
+
+    wallMesh.material = wallMaterial;
+
+    const light = new DirectionalLight('light', new Vector3(-2, 3, 5), scene);
+    light.intensity = 0.8;
+    light.diffuse = Color3.White();
+    light.position = new Vector3(2, 10, 5);
+
+    return [wallMesh];
   }
 
   private createSkyBox(scene: Scene): void {
@@ -400,7 +429,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     mesh.convertToUnIndexedMesh();
     clone.convertToUnIndexedMesh();
-    mesh.freezeWorldMatrix();
     clone.freezeWorldMatrix();
 
     // mesh behaviour
