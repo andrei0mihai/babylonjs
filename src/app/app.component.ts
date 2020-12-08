@@ -156,10 +156,16 @@ export class AppComponent implements OnInit, AfterViewInit {
    * @param scene Local File Access
    */
   private createGround(scene: Scene): Mesh {
-    const ground = MeshBuilder.CreateGround(
-      'ground',
-      { width: 100, height: 100 },
-      scene
+    const groundMesh = MeshBuilder.CreateGroundFromHeightMap(
+      'groundMesh',
+      'https://assets.babylonjs.com/environments/villageheightmap.png',
+      {
+        width: 128,
+        height: 128,
+        subdivisions: 64,
+        minHeight: -512,
+        maxHeight: 512,
+      }
     );
     const groundMaterial = new StandardMaterial('ground', scene);
     const groundTexture = new GrassProceduralTexture(
@@ -168,23 +174,22 @@ export class AppComponent implements OnInit, AfterViewInit {
       scene
     );
 
-    ground.convertToUnIndexedMesh();
-
-    ground.cullingStrategy = AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
+    groundMesh.cullingStrategy =
+      AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
 
     // disabling bounding info sync if no collisions must be calculated
-    ground.doNotSyncBoundingInfo = true;
+    groundMesh.doNotSyncBoundingInfo = true;
 
     // Every mesh has a world matrix to specify its position / rotation / scaling. This matrix is evaluated on every frame.
     // You can improve performances by freezing this matrix. Any subsequent changes to position / rotation / scaling will then be ignore:
-    ground.freezeWorldMatrix();
+    groundMesh.freezeWorldMatrix();
 
-    ground.scaling = new Vector3(1, 0.01, 1);
-    ground.material = groundMaterial;
+    groundMesh.scaling = new Vector3(1, 0.01, 1);
+    groundMesh.material = groundMaterial;
     groundMaterial.ambientTexture = groundTexture;
     // ground.material.wireframe = true;
-    ground.position = new Vector3(0, -2, 0);
-    return ground;
+    groundMesh.position = new Vector3(0, -2, 0);
+    return groundMesh;
   }
 
   private createLight(scene: Scene): DirectionalLight {
