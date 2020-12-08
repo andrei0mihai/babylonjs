@@ -170,7 +170,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     const groundMaterial = new StandardMaterial('ground', scene);
     const groundTexture = new GrassProceduralTexture(
       'woodProceduralTexture',
-      512,
+      1024,
       scene
     );
 
