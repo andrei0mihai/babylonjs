@@ -260,6 +260,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.particleSystem.maxEmitPower = 3;
     this.particleSystem.updateSpeed = 0.005;
 
+    this.particleSystem.gravity = new Vector3(0, -19.81, 0);
+
     // Start the particle system
     this.particleSystem.start();
   }
