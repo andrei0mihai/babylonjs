@@ -26,7 +26,6 @@ import {
   ParticleSystem,
   PointerDragBehavior,
   Scene,
-  SceneOptimizer,
   ShadowGenerator,
   StandardMaterial,
   Texture,
@@ -157,7 +156,11 @@ export class AppComponent implements OnInit, AfterViewInit {
    * @param scene Local File Access
    */
   private createGround(scene: Scene): Mesh {
-    const ground = Mesh.CreateGround('ground', 100, 100, 1, scene);
+    const ground = MeshBuilder.CreateGround(
+      'ground',
+      { width: 100, height: 100 },
+      scene
+    );
     const groundMaterial = new StandardMaterial('ground', scene);
     const groundTexture = new GrassProceduralTexture(
       'woodProceduralTexture',
@@ -296,6 +299,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.createSkyBox(this.scene);
 
+    // this.projectShadow(shadowGenerator, this.createWall(this.scene));
+
     // we have to set it back to its original state
     this.scene.blockfreeActiveMeshesAndRenderingGroups = false;
 
@@ -314,7 +319,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private createSkyBox(scene: Scene): void {
-    const skybox = Mesh.CreateBox('skyBox', 100, scene);
+    const skybox = MeshBuilder.CreateBox('skyBox', { size: 100 }, scene);
     const skyboxMaterial = new StandardMaterial('skyBox', scene);
     const px$ = this.angularFireStorage
       .refFromURL(
@@ -380,7 +385,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     const keyFramesR = [];
     const material = new StandardMaterial('material', scene);
     const cloneMaterial = material.clone('cloneMaterial');
-    const mesh = Mesh.CreateIcoSphere('icoSphere', { radius: 1 }, scene);
+    const mesh = MeshBuilder.CreateIcoSphere('icoSphere', { radius: 1 }, scene);
     const clone = mesh.clone('icoSphere2');
     const pointerDragBehavior = new PointerDragBehavior({
       dragAxis: new Vector3(0, 1, 0),
